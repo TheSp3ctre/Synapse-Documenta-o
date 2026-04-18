@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { Search, Leaf, Moon, Sun, ChevronDown, BookOpen, Compass, Lightbulb, GitBranch, X, Menu } from "lucide-react";
 
 type NavItem = { label: string; href: string; active?: boolean };
@@ -58,6 +59,30 @@ interface DocsSidebarProps {
 
 export function DocsSidebar({ open, onClose }: DocsSidebarProps) {
   const [isDark, setIsDark] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const filteredSections = useMemo(() => {
+    if (!searchTerm) return sections;
+    const term = searchTerm.toLowerCase();
+    
+    return sections.map(section => ({
+      ...section,
+      items: section.items.filter(item => 
+        item.label.toLowerCase().includes(term) || 
+        section.title.toLowerCase().includes(term)
+      )
+    })).filter(section => section.items.length > 0);
+  }, [searchTerm]);
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && filteredSections.length > 0 && filteredSections[0].items.length > 0) {
+      const firstItem = filteredSections[0].items[0];
+      navigate({ to: firstItem.href as any });
+      setSearchTerm("");
+      onClose();
+    }
+  };
 
   useEffect(() => {
     const stored = localStorage.getItem("verdant-theme");
@@ -110,6 +135,9 @@ export function DocsSidebar({ open, onClose }: DocsSidebarProps) {
             <input
               type="search"
               placeholder="Pesquisar..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
               className="w-full rounded-lg border border-sage bg-background py-2 pl-9 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:border-sage-medium focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
             />
           </div>
@@ -117,7 +145,13 @@ export function DocsSidebar({ open, onClose }: DocsSidebarProps) {
 
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto px-2 py-4">
-          {sections.map((s) => <Section key={s.title} section={s} />)}
+          {filteredSections.length > 0 ? (
+            filteredSections.map((s) => <Section key={s.title} section={s} />)
+          ) : (
+            <div className="px-4 py-8 text-center">
+              <p className="text-sm text-muted-foreground">Nenhum resultado encontrado.</p>
+            </div>
+          )}
         </nav>
 
         {/* Footer */}
