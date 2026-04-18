@@ -1,6 +1,14 @@
 import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Search, Leaf, Moon, Sun, ChevronDown, BookOpen, Compass, Lightbulb, GitBranch, X, Menu } from "lucide-react";
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 
 type NavItem = { label: string; href: string; active?: boolean };
 type NavSection = { title: string; icon: React.ComponentType<{ className?: string }>; items: NavItem[]; defaultOpen?: boolean };
@@ -59,12 +67,13 @@ interface DocsSidebarProps {
 
 export function DocsSidebar({ open, onClose }: DocsSidebarProps) {
   const [isDark, setIsDark] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   const filteredSections = useMemo(() => {
-    if (!searchTerm) return sections;
     const term = searchTerm.toLowerCase();
+    if (!term) return sections;
     
     return sections.map(section => ({
       ...section,
@@ -75,13 +84,10 @@ export function DocsSidebar({ open, onClose }: DocsSidebarProps) {
     })).filter(section => section.items.length > 0);
   }, [searchTerm]);
 
-  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && filteredSections.length > 0 && filteredSections[0].items.length > 0) {
-      const firstItem = filteredSections[0].items[0];
-      navigate({ to: firstItem.href as any });
-      setSearchTerm("");
-      onClose();
-    }
+  const onSelect = (href: string) => {
+    navigate({ to: href as any });
+    setSearchOpen(false);
+    onClose();
   };
 
   useEffect(() => {
@@ -130,28 +136,44 @@ export function DocsSidebar({ open, onClose }: DocsSidebarProps) {
 
         {/* Search */}
         <div className="px-4 pt-4 pb-2">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
-            <input
-              type="search"
-              placeholder="Pesquisar..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyDown={handleSearchKeyDown}
-              className="w-full rounded-lg border border-sage bg-background py-2 pl-9 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:border-sage-medium focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
-            />
-          </div>
+          <button
+            onClick={() => setSearchOpen(true)}
+            className="flex w-full items-center gap-2 rounded-lg border border-sage bg-background px-3 py-2 text-sm text-muted-foreground hover:bg-sage-soft/50 hover:text-forest transition-all"
+          >
+            <Search className="h-3.5 w-3.5" />
+            <span>Pesquisar...</span>
+          </button>
         </div>
+
+        {/* Search Modal */}
+        <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
+          <CommandInput 
+            placeholder="Digite para pesquisar..." 
+            value={searchTerm}
+            onValueChange={setSearchTerm}
+          />
+          <CommandList>
+            <CommandEmpty>Nenhum resultado encontrado.</CommandEmpty>
+            {filteredSections.map((section) => (
+              <CommandGroup key={section.title} heading={section.title}>
+                {section.items.map((item) => (
+                  <CommandItem
+                    key={item.href}
+                    onSelect={() => onSelect(item.href)}
+                    className="cursor-pointer"
+                  >
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    <span>{item.label}</span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            ))}
+          </CommandList>
+        </CommandDialog>
 
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto px-2 py-4">
-          {filteredSections.length > 0 ? (
-            filteredSections.map((s) => <Section key={s.title} section={s} />)
-          ) : (
-            <div className="px-4 py-8 text-center">
-              <p className="text-sm text-muted-foreground">Nenhum resultado encontrado.</p>
-            </div>
-          )}
+          {sections.map((s) => <Section key={s.title} section={s} />)}
         </nav>
 
         {/* Footer */}
