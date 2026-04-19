@@ -1,8 +1,8 @@
 # NucleoDigest Documentação Técnica
 
-Este repositório centraliza toda a documentação da arquitetura e implementação do **NucleoDigest**, uma solução inteligente para monitoramento biológico e otimização econômica de biodigestores industriais.
+Este repositório centraliza toda a documentação da arquitetura e implementação do **Synapse**, uma solução inteligente para monitoramento biológico e otimização econômica de biodigestores industriais.
 
-## 🚀 O que é o NucleoDigest?
+## 🚀 O que é o Synapse?
 
 O NucleoDigest resolve a fragilidade biológica de biodigestores integrando **inteligência preditiva** (saúde do microbioma) com **otimização de receita** em tempo real. O sistema atua como um "guardião biológico", garantindo que a operação econômica só ocorra se o sistema estiver saudável.
 
