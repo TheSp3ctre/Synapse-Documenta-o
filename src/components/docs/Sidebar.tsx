@@ -3,16 +3,24 @@ import { Search, ChevronDown, BookOpen, Compass, GitBranch, X, Menu } from "luci
 import { Link, useLocation } from "@tanstack/react-router";
 import { getDocSections, NavSection } from "@/lib/docs";
 
-export function DocsSidebar({ open, onClose, onSearchOpen }: { open: boolean; onClose: () => void; onSearchOpen: () => void }) {
+export function DocsSidebar({
+  open,
+  onClose,
+  onSearchOpen,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onSearchOpen: () => void;
+}) {
   const location = useLocation();
 
   // Organize files into sections
   const sections = useMemo(() => {
     const rawSections = getDocSections();
     // Add icons to sections
-    return rawSections.map(s => ({
+    return rawSections.map((s) => ({
       ...s,
-      icon: s.title === "Documentação" ? BookOpen : s.title === "Arquitetura" ? GitBranch : Compass
+      icon: s.title === "Documentação" ? BookOpen : s.title === "Arquitetura" ? GitBranch : Compass,
     })) as NavSection[];
   }, []);
 
@@ -80,7 +88,7 @@ export function DocsSidebar({ open, onClose, onSearchOpen }: { open: boolean; on
 
 function Section({ section, currentPath }: { section: NavSection; currentPath: string }) {
   const isActive = (href: string) => currentPath === href;
-  const hasActiveItem = section.items.some(item => isActive(item.href));
+  const hasActiveItem = section.items.some((item) => isActive(item.href));
   const [open, setOpen] = useState(section.defaultOpen || hasActiveItem);
   const Icon = section.icon;
 
@@ -96,7 +104,9 @@ function Section({ section, currentPath }: { section: NavSection; currentPath: s
       >
         <Icon className="h-3 w-3 opacity-60" />
         <span className="flex-1 text-left">{section.title}</span>
-        <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${open ? "" : "-rotate-90"}`} />
+        <ChevronDown
+          className={`h-3 w-3 transition-transform duration-200 ${open ? "" : "-rotate-90"}`}
+        />
       </button>
       {open && (
         <ul className="relative ml-4 mt-1 border-l border-sage">
@@ -131,5 +141,3 @@ export function MobileMenuButton({ onClick }: { onClick: () => void }) {
     </button>
   );
 }
-
-

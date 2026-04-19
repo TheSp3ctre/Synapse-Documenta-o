@@ -6,12 +6,12 @@ O NucleoDigest usa quatro blocos de integração REST. Dois são **inbound** (o 
 
 ## Os quatro blocos
 
-| # | Integração | Direção | Tipo Mendix | Frequência |
-|---|---|---|---|---|
-| 1 | Sensores IoT | Inbound | Published REST Service | Por leitura (5–15 min) |
-| 2 | Notificação biológica | Outbound | Consumed REST + Call REST | Quando alerta é criado |
-| 3 | Preços de mercado | Outbound | Consumed REST + Scheduled Event | A cada 1 hora |
-| 4 | Recomendação (interna) | Interna | Microflow encadeado | Após coleta de preços |
+| #   | Integração             | Direção  | Tipo Mendix                     | Frequência             |
+| --- | ---------------------- | -------- | ------------------------------- | ---------------------- |
+| 1   | Sensores IoT           | Inbound  | Published REST Service          | Por leitura (5–15 min) |
+| 2   | Notificação biológica  | Outbound | Consumed REST + Call REST       | Quando alerta é criado |
+| 3   | Preços de mercado      | Outbound | Consumed REST + Scheduled Event | A cada 1 hora          |
+| 4   | Recomendação (interna) | Interna  | Microflow encadeado             | Após coleta de preços  |
 
 ---
 
@@ -25,7 +25,7 @@ O NucleoDigest usa quatro blocos de integração REST. Dois são **inbound** (o 
 
 ---
 
-*Ver detalhes: [Sensores IoT →](/rest-sensor) · [Notificação →](/rest-notif) · [Preços →](/rest-precos) · [Mocks →](/rest-mock)*
+_Ver detalhes: [Sensores IoT →](/rest-sensor) · [Notificação →](/rest-notif) · [Preços →](/rest-precos) · [Mocks →](/rest-mock)_
 
 ---
 
@@ -61,22 +61,23 @@ X-API-Key: {chave-de-api}
 }
 ```
 
-| Campo | Tipo | Obrigatório | Validação |
-|---|---|---|---|
-| `biodigestor_id` | Integer | Sim | Deve existir no banco |
-| `ph` | Decimal | Sim | Range: 0 a 14 |
-| `ch4_pct` | Decimal | Sim | Range: 0 a 100 |
-| `temperatura_c` | Decimal | Sim | Range: -10 a 80 |
-| `agv_mgL` | Decimal | Não | Range: 0 a 20000 |
-| `nh3_mgL` | Decimal | Não | Range: 0 a 10000 |
-| `timestamp` | ISO 8601 | Sim | Não pode ser futuro |
-| `origem` | String | Não | Máximo 50 caracteres |
+| Campo            | Tipo     | Obrigatório | Validação             |
+| ---------------- | -------- | ----------- | --------------------- |
+| `biodigestor_id` | Integer  | Sim         | Deve existir no banco |
+| `ph`             | Decimal  | Sim         | Range: 0 a 14         |
+| `ch4_pct`        | Decimal  | Sim         | Range: 0 a 100        |
+| `temperatura_c`  | Decimal  | Sim         | Range: -10 a 80       |
+| `agv_mgL`        | Decimal  | Não         | Range: 0 a 20000      |
+| `nh3_mgL`        | Decimal  | Não         | Range: 0 a 10000      |
+| `timestamp`      | ISO 8601 | Sim         | Não pode ser futuro   |
+| `origem`         | String   | Não         | Máximo 50 caracteres  |
 
 ---
 
 ## Responses
 
 **HTTP 200 — Sucesso:**
+
 ```json
 {
   "status": "ok",
@@ -88,6 +89,7 @@ X-API-Key: {chave-de-api}
 ```
 
 **HTTP 400 — Payload inválido:**
+
 ```json
 {
   "status": "erro",
@@ -97,6 +99,7 @@ X-API-Key: {chave-de-api}
 ```
 
 **HTTP 401 — Autenticação falhou:**
+
 ```json
 {
   "status": "erro",
@@ -127,11 +130,11 @@ Quando o `AnalisarRisco` cria um `AlertaBiologico` com severidade `MEDIO` ou `CR
 
 Qualquer serviço que aceite um POST com JSON. Exemplos compatíveis:
 
-| Serviço | URL base | Uso |
-|---|---|---|
-| SendGrid | `https://api.sendgrid.com/v3/mail/send` | Email |
-| Slack Webhook | `https://hooks.slack.com/services/...` | Mensagem Slack |
-| Webhook genérico | Qualquer URL | Sistema interno |
+| Serviço          | URL base                                | Uso             |
+| ---------------- | --------------------------------------- | --------------- |
+| SendGrid         | `https://api.sendgrid.com/v3/mail/send` | Email           |
+| Slack Webhook    | `https://hooks.slack.com/services/...`  | Mensagem Slack  |
+| Webhook genérico | Qualquer URL                            | Sistema interno |
 
 ---
 
@@ -179,9 +182,10 @@ Authorization: Bearer {token}
 ```
 
 **Response:**
+
 ```json
 {
-  "preco_mwh": 312.50,
+  "preco_mwh": 312.5,
   "unidade": "BRL",
   "variacao_pct": 2.3,
   "fonte": "CCEE",
@@ -199,9 +203,10 @@ Authorization: Bearer {token}
 ```
 
 **Response:**
+
 ```json
 {
-  "preco_tcO2e": 28.40,
+  "preco_tcO2e": 28.4,
   "unidade": "BRL",
   "variacao_pct": -0.5,
   "fonte": "B3-RenovaBio",
@@ -254,11 +259,11 @@ Durante o desenvolvimento e a demo, todas as APIs externas podem ser simuladas c
 
 ## Opções de hosting de mock
 
-| Serviço | URL | Gratuito | Setup |
-|---|---|---|---|
-| [mockapi.io](https://mockapi.io) | `https://api.mockapi.io/...` | Sim (100 req/dia) | Criar projeto, adicionar endpoint |
-| [jsonbin.io](https://jsonbin.io) | `https://api.jsonbin.io/v3/b/...` | Sim | Criar bin com JSON |
-| [beeceptor.com](https://beeceptor.com) | `https://...free.beeceptor.com/...` | Sim (50 req/dia) | Criar endpoint com resposta |
+| Serviço                                | URL                                 | Gratuito          | Setup                             |
+| -------------------------------------- | ----------------------------------- | ----------------- | --------------------------------- |
+| [mockapi.io](https://mockapi.io)       | `https://api.mockapi.io/...`        | Sim (100 req/dia) | Criar projeto, adicionar endpoint |
+| [jsonbin.io](https://jsonbin.io)       | `https://api.jsonbin.io/v3/b/...`   | Sim               | Criar bin com JSON                |
+| [beeceptor.com](https://beeceptor.com) | `https://...free.beeceptor.com/...` | Sim (50 req/dia)  | Criar endpoint com resposta       |
 
 ---
 
@@ -296,9 +301,9 @@ Durante o desenvolvimento e a demo, todas as APIs externas podem ser simuladas c
 
 ```json
 {
-  "preco_mwh": 312.50,
-  "preco_tcO2e": 28.40,
-  "gas_natural_mwh": 185.00,
+  "preco_mwh": 312.5,
+  "preco_tcO2e": 28.4,
+  "gas_natural_mwh": 185.0,
   "fonte": "mock",
   "timestamp": "2026-04-19T14:00:00Z"
 }
@@ -315,4 +320,4 @@ Durante o desenvolvimento e a demo, todas as APIs externas podem ser simuladas c
 
 ---
 
-*Próxima seção: [Microflows →](/microflows)*
+_Próxima seção: [Microflows →](/microflows)_

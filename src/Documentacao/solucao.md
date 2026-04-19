@@ -26,12 +26,12 @@ Status: SAUDÁVEL → segue para otimização econômica
 
 ### Por que esses quatro parâmetros
 
-| Parâmetro | O que indica | Por que é preditivo |
-|---|---|---|
-| pH | Acidez geral do digestor | Cai gradualmente dias antes do colapso visível |
-| AGV (ácido graxo volátil) | Acúmulo de ácidos intermediários | Precursor direto da queda de pH — aparece 2 a 5 dias antes |
-| CH4 (metano) | Eficiência das bactérias metanogênicas | Queda indica inibição parcial antes do colapso total |
-| NH3 (amônia livre) | Toxicidade para bactérias | Acúmulo lento — detectável semanas antes de causar dano |
+| Parâmetro                 | O que indica                           | Por que é preditivo                                        |
+| ------------------------- | -------------------------------------- | ---------------------------------------------------------- |
+| pH                        | Acidez geral do digestor               | Cai gradualmente dias antes do colapso visível             |
+| AGV (ácido graxo volátil) | Acúmulo de ácidos intermediários       | Precursor direto da queda de pH — aparece 2 a 5 dias antes |
+| CH4 (metano)              | Eficiência das bactérias metanogênicas | Queda indica inibição parcial antes do colapso total       |
+| NH3 (amônia livre)        | Toxicidade para bactérias              | Acúmulo lento — detectável semanas antes de causar dano    |
 
 O AGV é o indicador mais valioso: ele sobe antes do pH cair, dando ao operador uma janela de 2 a 5 dias para agir. Sem esse monitoramento, a única leitura disponível é o pH — e quando o pH cai, já é tarde.
 
@@ -77,11 +77,11 @@ lucro_liquido = receita_energia
 
 ### Fatores de conversão explicados
 
-| Fator | Valor | Origem |
-|---|---|---|
-| Eficiência biogás → energia | 0.6 (60%) | Eficiência média de geradores a biogás |
-| Biogás → tCO₂e evitado | 0.00202 ton/m³ | Fator de emissão do metano (GWP 21) |
-| Biogás → kWh | ~6 kWh/m³ | Poder calorífico inferior do metano |
+| Fator                       | Valor          | Origem                                 |
+| --------------------------- | -------------- | -------------------------------------- |
+| Eficiência biogás → energia | 0.6 (60%)      | Eficiência média de geradores a biogás |
+| Biogás → tCO₂e evitado      | 0.00202 ton/m³ | Fator de emissão do metano (GWP 21)    |
+| Biogás → kWh                | ~6 kWh/m³      | Poder calorífico inferior do metano    |
 
 ### O guard biológico
 
@@ -120,4 +120,4 @@ Isso garante que o sistema nunca recomende uma ação econômica em um biodigest
 
 ---
 
-*Próxima seção: [Stack tecnológica →](/stack)*
+_Próxima seção: [Stack tecnológica →](/stack)_

@@ -23,10 +23,11 @@ function IntroductionPage() {
         <h1 className="mt-6 text-[28px] sm:text-[36px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground">
           Introdução
         </h1>
-        
+
         <div className="mt-8 prose-content">
           <p className="text-[16px] sm:text-[17px] leading-relaxed text-foreground">
-            O propósito desta página é documentar a solução, servindo como uma introdução ao sistema e suas funcionalidades.
+            O propósito desta página é documentar a solução, servindo como uma introdução ao sistema
+            e suas funcionalidades.
           </p>
         </div>
       </div>

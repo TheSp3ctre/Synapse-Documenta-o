@@ -31,11 +31,17 @@ export function TableOfContents() {
         </ul>
 
         <div className="mt-8 pt-6 border-t border-sage">
-          <a href="#" className="flex items-center gap-2 text-[12px] text-muted-foreground hover:text-forest transition-colors">
+          <a
+            href="#"
+            className="flex items-center gap-2 text-[12px] text-muted-foreground hover:text-forest transition-colors"
+          >
             <span className="h-1 w-1 rounded-full bg-sage-medium" />
             Edit this page
           </a>
-          <a href="#" className="mt-2 flex items-center gap-2 text-[12px] text-muted-foreground hover:text-forest transition-colors">
+          <a
+            href="#"
+            className="mt-2 flex items-center gap-2 text-[12px] text-muted-foreground hover:text-forest transition-colors"
+          >
             <span className="h-1 w-1 rounded-full bg-sage-medium" />
             Report an issue
           </a>

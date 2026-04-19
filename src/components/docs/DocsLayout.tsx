@@ -26,27 +26,29 @@ export function DocsLayout({ children }: DocsLayoutProps) {
     const sections = getDocSections();
     const term = searchTerm.toLowerCase();
     if (!term) return sections;
-    
-    return sections.map(section => ({
-      ...section,
-      items: section.items.filter(item => 
-        item.label.toLowerCase().includes(term) || 
-        section.title.toLowerCase().includes(term)
-      )
-    })).filter(section => section.items.length > 0);
+
+    return sections
+      .map((section) => ({
+        ...section,
+        items: section.items.filter(
+          (item) =>
+            item.label.toLowerCase().includes(term) || section.title.toLowerCase().includes(term),
+        ),
+      }))
+      .filter((section) => section.items.length > 0);
   }, [searchTerm]);
 
   const onSelect = (href: string) => {
-    navigate({ to: href as any });
+    navigate({ to: href as string });
     setSearchOpen(false);
     setMenuOpen(false);
   };
 
   return (
     <div className="min-h-screen bg-background">
-      <DocsSidebar 
-        open={menuOpen} 
-        onClose={() => setMenuOpen(false)} 
+      <DocsSidebar
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
         onSearchOpen={() => {
           setMenuOpen(false);
           setSearchOpen(true);
@@ -55,8 +57,8 @@ export function DocsLayout({ children }: DocsLayoutProps) {
 
       {/* Search Modal */}
       <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
-        <CommandInput 
-          placeholder="Digite para pesquisar..." 
+        <CommandInput
+          placeholder="Digite para pesquisar..."
           value={searchTerm}
           onValueChange={setSearchTerm}
         />
@@ -87,9 +89,7 @@ export function DocsLayout({ children }: DocsLayoutProps) {
         </div>
       </header>
 
-      <main className="lg:pl-[260px]">
-        {children || <Outlet />}
-      </main>
+      <main className="lg:pl-[260px]">{children || <Outlet />}</main>
     </div>
   );
 }

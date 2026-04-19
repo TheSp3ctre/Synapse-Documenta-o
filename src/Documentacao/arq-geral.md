@@ -45,12 +45,12 @@ A arquitetura do NucleoDigest é organizada em quatro camadas verticais. Cada ca
 
 ## Responsabilidade de cada camada
 
-| Camada | Responsabilidade | Tecnologia |
-|---|---|---|
-| Fontes externas | Produzir dados brutos (sensores, preços) | IoT, APIs públicas |
-| Normalização REST | Converter dados externos para JSON padronizado | Mendix REST calls / mock |
-| Mendix (núcleo) | Toda a lógica biológica, econômica e de interface | Mendix Studio Pro |
-| Outputs | Registrar e executar as decisões tomadas | ProducaoDiaria + aprovação |
+| Camada            | Responsabilidade                                  | Tecnologia                 |
+| ----------------- | ------------------------------------------------- | -------------------------- |
+| Fontes externas   | Produzir dados brutos (sensores, preços)          | IoT, APIs públicas         |
+| Normalização REST | Converter dados externos para JSON padronizado    | Mendix REST calls / mock   |
+| Mendix (núcleo)   | Toda a lógica biológica, econômica e de interface | Mendix Studio Pro          |
+| Outputs           | Registrar e executar as decisões tomadas          | ProducaoDiaria + aprovação |
 
 ---
 
@@ -66,4 +66,4 @@ A arquitetura do NucleoDigest é organizada em quatro camadas verticais. Cada ca
 
 ---
 
-*Ver também: [Camadas da solução →](/arq-camadas) · [Fluxo de dados →](/arq-fluxo) · [Componentes Mendix →](/arq-componentes)*
+_Ver também: [Camadas da solução →](/arq-camadas) · [Fluxo de dados →](/arq-fluxo) · [Componentes Mendix →](/arq-componentes)_

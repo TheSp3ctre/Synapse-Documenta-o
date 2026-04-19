@@ -6,11 +6,11 @@ A interface do NucleoDigest é composta por três Pages no Mendix. Todas usam da
 
 ## As três páginas
 
-| Page | URL | Usuários | Função principal |
-|---|---|---|---|
-| Saúde do biodigestor | `/saude` | Operador, Gestor | Monitoramento biológico em tempo real |
-| Painel econômico | `/economico` | Gestor, Admin | Receitas e recomendação econômica ativa |
-| Histórico | `/historico` | Gestor, Admin | Registro completo de recomendações e resultados |
+| Page                 | URL          | Usuários         | Função principal                                |
+| -------------------- | ------------ | ---------------- | ----------------------------------------------- |
+| Saúde do biodigestor | `/saude`     | Operador, Gestor | Monitoramento biológico em tempo real           |
+| Painel econômico     | `/economico` | Gestor, Admin    | Receitas e recomendação econômica ativa         |
+| Histórico            | `/historico` | Gestor, Admin    | Registro completo de recomendações e resultados |
 
 ---
 
@@ -56,18 +56,18 @@ Tela principal de monitoramento biológico. É o que o operador vê ao abrir o s
 
 ## Componentes Mendix
 
-| Componente | Tipo | Data source | Dados exibidos |
-|---|---|---|---|
-| Banner de risco | Data View + Conditional Visibility | AlertaBiologico (mais recente, não resolvido) | Status, severidade, tipo |
-| Gauge pH | Progress Circle widget | LeituraSensor (mais recente) | Valor atual de pH |
-| Gauge CH4 | Progress Circle widget | LeituraSensor (mais recente) | Percentual de metano |
-| Gauge Temperatura | Progress Circle widget | LeituraSensor (mais recente) | Temperatura em °C |
-| Gauge AGV | Progress Circle widget | LeituraSensor (mais recente) | AGV em mg/L |
-| Gráfico tendência | Line Chart widget | List de LeituraSensor (últimas 6h) | pH ao longo do tempo |
-| Lista de alertas | List View | AlertaBiologico (resolvido = false) | Tipo, severidade, timestamp |
-| Card recomendação | Data View | Recomendacao (status = PENDENTE, mais recente) | Ação, motivo |
-| Botão Aprovar | Microflow button | Recomendacao | Atualiza status → APROVADA |
-| Botão Rejeitar | Microflow button | Recomendacao | Atualiza status → REJEITADA |
+| Componente        | Tipo                               | Data source                                    | Dados exibidos              |
+| ----------------- | ---------------------------------- | ---------------------------------------------- | --------------------------- |
+| Banner de risco   | Data View + Conditional Visibility | AlertaBiologico (mais recente, não resolvido)  | Status, severidade, tipo    |
+| Gauge pH          | Progress Circle widget             | LeituraSensor (mais recente)                   | Valor atual de pH           |
+| Gauge CH4         | Progress Circle widget             | LeituraSensor (mais recente)                   | Percentual de metano        |
+| Gauge Temperatura | Progress Circle widget             | LeituraSensor (mais recente)                   | Temperatura em °C           |
+| Gauge AGV         | Progress Circle widget             | LeituraSensor (mais recente)                   | AGV em mg/L                 |
+| Gráfico tendência | Line Chart widget                  | List de LeituraSensor (últimas 6h)             | pH ao longo do tempo        |
+| Lista de alertas  | List View                          | AlertaBiologico (resolvido = false)            | Tipo, severidade, timestamp |
+| Card recomendação | Data View                          | Recomendacao (status = PENDENTE, mais recente) | Ação, motivo                |
+| Botão Aprovar     | Microflow button                   | Recomendacao                                   | Atualiza status → APROVADA  |
+| Botão Rejeitar    | Microflow button                   | Recomendacao                                   | Atualiza status → REJEITADA |
 
 ---
 
@@ -75,12 +75,12 @@ Tela principal de monitoramento biológico. É o que o operador vê ao abrir o s
 
 Cada gauge usa o widget **Progress Circle** (disponível no Mendix Marketplace, gratuito).
 
-| Gauge | Mínimo | Máximo | Faixa verde | Faixa amarela | Faixa vermelha |
-|---|---|---|---|---|---|
-| pH | 0 | 14 | 6.8 – 7.5 | 6.5 – 6.8 | < 6.5 |
-| CH4 (%) | 0 | 100 | > 55 | 50 – 55 | < 50 |
-| Temperatura (°C) | 20 | 60 | 35 – 38 | 30 – 35 | < 30 ou > 42 |
-| AGV (mg/L) | 0 | 8000 | < 3000 | 3000 – 4000 | > 4000 |
+| Gauge            | Mínimo | Máximo | Faixa verde | Faixa amarela | Faixa vermelha |
+| ---------------- | ------ | ------ | ----------- | ------------- | -------------- |
+| pH               | 0      | 14     | 6.8 – 7.5   | 6.5 – 6.8     | < 6.5          |
+| CH4 (%)          | 0      | 100    | > 55        | 50 – 55       | < 50           |
+| Temperatura (°C) | 20     | 60     | 35 – 38     | 30 – 35       | < 30 ou > 42   |
+| AGV (mg/L)       | 0      | 8000   | < 3000      | 3000 – 4000   | > 4000         |
 
 ---
 
@@ -151,16 +151,16 @@ Visão financeira completa do biodigestor. Mostra receitas em tempo real e a rec
 
 ## Componentes Mendix
 
-| Componente | Tipo | Data source | Dados exibidos |
-|---|---|---|---|
-| Card receita energia | Data View + expressão | ProducaoDiaria (hoje) | `receita_energia_brl` |
-| Card receita CBIO | Data View + expressão | ProducaoDiaria (hoje) | `receita_cbio_brl` |
-| Card tipping fee | Data View + expressão | ProducaoDiaria (hoje) | `receita_tipping_brl` |
-| Card lucro líquido | Data View + expressão | ProducaoDiaria (hoje) | `receita_total_brl` |
-| Gráfico barras 7 dias | Bar Chart widget (empilhado) | List ProducaoDiaria (7 dias) | receitas por fonte empilhadas |
-| Card recomendação ativa | Data View | Recomendacao (PENDENTE, mais recente) | Ação, lucro, breakdown |
-| Barra preços ao vivo | Data View | PrecoMercado (mais recente) | energia_mwh_brl, cbio_brl |
-| Botões aprovar/rejeitar | Microflow buttons | Recomendacao | Mesmos microflows da Page Saúde |
+| Componente              | Tipo                         | Data source                           | Dados exibidos                  |
+| ----------------------- | ---------------------------- | ------------------------------------- | ------------------------------- |
+| Card receita energia    | Data View + expressão        | ProducaoDiaria (hoje)                 | `receita_energia_brl`           |
+| Card receita CBIO       | Data View + expressão        | ProducaoDiaria (hoje)                 | `receita_cbio_brl`              |
+| Card tipping fee        | Data View + expressão        | ProducaoDiaria (hoje)                 | `receita_tipping_brl`           |
+| Card lucro líquido      | Data View + expressão        | ProducaoDiaria (hoje)                 | `receita_total_brl`             |
+| Gráfico barras 7 dias   | Bar Chart widget (empilhado) | List ProducaoDiaria (7 dias)          | receitas por fonte empilhadas   |
+| Card recomendação ativa | Data View                    | Recomendacao (PENDENTE, mais recente) | Ação, lucro, breakdown          |
+| Barra preços ao vivo    | Data View                    | PrecoMercado (mais recente)           | energia_mwh_brl, cbio_brl       |
+| Botões aprovar/rejeitar | Microflow buttons            | Recomendacao                          | Mesmos microflows da Page Saúde |
 
 ---
 
@@ -209,18 +209,18 @@ Registro completo de todas as recomendações e seus resultados. Base para anál
 
 ## Componentes Mendix
 
-| Componente | Tipo | Data source | Configuração |
-|---|---|---|---|
-| Filtro período | Date Range Picker | Context | XPath: `criado_em >= inicio AND criado_em <= fim` |
-| Filtro tipo | Drop-down | Enumeration | Valores: Todas, VENDER_ENERGIA, EMITIR_CARBONO, CORRECAO_BIOLOGICA |
-| Filtro status | Drop-down | Enumeration | Valores: Todos, PENDENTE, APROVADA, REJEITADA |
-| Card total | Data View + count | List Recomendacao | Count da lista filtrada |
-| Card aprovadas | Data View + expressão | List Recomendacao | Count WHERE status = APROVADA |
-| Card receita | Data View + aggregate | List ProducaoDiaria | SUM receita_total_brl |
-| Tabela histórico | Data Grid 2 | Recomendacao (filtrada) | 20 registros por página |
-| Badge status | Conditional formatting | Recomendacao.status | Teal=APROVADA, Vermelho=REJEITADA, Âmbar=PENDENTE |
-| Gráfico linha 30d | Line Chart | List ProducaoDiaria (30 dias) | receita_total_brl por data |
-| Gráfico donut | Pie Chart | Aggregate Recomendacao | COUNT por status |
+| Componente        | Tipo                   | Data source                   | Configuração                                                       |
+| ----------------- | ---------------------- | ----------------------------- | ------------------------------------------------------------------ |
+| Filtro período    | Date Range Picker      | Context                       | XPath: `criado_em >= inicio AND criado_em <= fim`                  |
+| Filtro tipo       | Drop-down              | Enumeration                   | Valores: Todas, VENDER_ENERGIA, EMITIR_CARBONO, CORRECAO_BIOLOGICA |
+| Filtro status     | Drop-down              | Enumeration                   | Valores: Todos, PENDENTE, APROVADA, REJEITADA                      |
+| Card total        | Data View + count      | List Recomendacao             | Count da lista filtrada                                            |
+| Card aprovadas    | Data View + expressão  | List Recomendacao             | Count WHERE status = APROVADA                                      |
+| Card receita      | Data View + aggregate  | List ProducaoDiaria           | SUM receita_total_brl                                              |
+| Tabela histórico  | Data Grid 2            | Recomendacao (filtrada)       | 20 registros por página                                            |
+| Badge status      | Conditional formatting | Recomendacao.status           | Teal=APROVADA, Vermelho=REJEITADA, Âmbar=PENDENTE                  |
+| Gráfico linha 30d | Line Chart             | List ProducaoDiaria (30 dias) | receita_total_brl por data                                         |
+| Gráfico donut     | Pie Chart              | Aggregate Recomendacao        | COUNT por status                                                   |
 
 ---
 
@@ -400,4 +400,4 @@ Right: donut chart "Resultado das recomendações":
 
 ---
 
-*Próxima seção: [Roadmap →](/roadmap)*
+_Próxima seção: [Roadmap →](/roadmap)_

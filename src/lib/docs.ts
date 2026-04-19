@@ -1,3 +1,5 @@
+import React from "react";
+
 // Import all markdown files from the Documentacao folder
 export const docFiles = import.meta.glob("../Documentacao/*.md", {
   eager: true,
@@ -6,18 +8,23 @@ export const docFiles = import.meta.glob("../Documentacao/*.md", {
 }) as Record<string, string>;
 
 export type NavItem = { label: string; href: string };
-export type NavSection = { 
-  title: string; 
-  icon: any; 
-  items: NavItem[]; 
-  defaultOpen?: boolean 
+export type NavSection = {
+  title: string;
+  icon?: React.ElementType;
+  items: NavItem[];
+  defaultOpen?: boolean;
 };
 
 export const getDocSections = (): NavSection[] => {
   const items = Object.entries(docFiles).map(([path, content]) => {
     const slug = path.split("/").pop()?.replace(".md", "") || "";
     const titleMatch = content.match(/^#\s+(.*)/m);
-    const label = titleMatch ? titleMatch[1] : slug.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+    const label = titleMatch
+      ? titleMatch[1]
+      : slug
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ");
     return { label, href: `/docs/${slug}` };
   });
 

@@ -23,12 +23,12 @@ O NucleoDigest resolve dois problemas independentes que custam receita ao operad
 
 Monitoramento contínuo de quatro parâmetros do microbioma:
 
-| Parâmetro | Sigla | Range saudável | Threshold de alerta |
-|---|---|---|---|
-| Potencial hidrogeniônico | pH | 6.8 – 7.5 | < 6.5 (crítico) |
-| Percentual de metano | CH4 | > 55% | < 50% (médio) |
-| Ácido graxo volátil | AGV | < 3000 mg/L | > 4000 mg/L (crítico) |
-| Amônia livre | NH3 | < 2000 mg/L | > 3000 mg/L (médio) |
+| Parâmetro                | Sigla | Range saudável | Threshold de alerta   |
+| ------------------------ | ----- | -------------- | --------------------- |
+| Potencial hidrogeniônico | pH    | 6.8 – 7.5      | < 6.5 (crítico)       |
+| Percentual de metano     | CH4   | > 55%          | < 50% (médio)         |
+| Ácido graxo volátil      | AGV   | < 3000 mg/L    | > 4000 mg/L (crítico) |
+| Amônia livre             | NH3   | < 2000 mg/L    | > 3000 mg/L (médio)   |
 
 Quando qualquer threshold é cruzado, o sistema gera um `AlertaBiologico` com severidade graduada, notifica o operador e recomenda a ação corretiva antes que a produção colapse.
 
@@ -41,6 +41,7 @@ lucro_liquido = receita_energia + receita_cbio + tipping_fee − custo_logistica
 ```
 
 Onde:
+
 - `receita_energia` = biogás × 0.6 × preço spot energia (R$/MWh)
 - `receita_cbio` = CO₂ evitado (ton) × preço CBIO (R$/tCO₂e)
 - `tipping_fee` = valor cobrado por receber o resíduo de terceiros
@@ -75,15 +76,15 @@ O diferencial central é monitorar o **microbioma** (a biologia), não apenas o 
 
 ## Plataforma e stack
 
-| Componente | Tecnologia | Motivo da escolha |
-|---|---|---|
-| Aplicação principal | Mendix (low-code) | Desenvolvimento rápido, REST nativo, sem infra customizada |
-| Banco de dados | Domain Model Mendix (PostgreSQL) | Gerenciado pela plataforma, zero configuração |
-| Integrações externas | Consumed REST Services | GET preços energia e CBIO a cada hora |
-| Entrada de dados | Published REST Service | POST de sensores IoT via `/api/leitura` |
-| Lógica de negócio | Microflows + App Constants | Thresholds configuráveis sem redeploy |
-| Agendamento | Scheduled Events | Coleta de preços periódica |
-| Interface | Pages Mendix | 3 páginas: Saúde, Econômico, Histórico |
+| Componente           | Tecnologia                       | Motivo da escolha                                          |
+| -------------------- | -------------------------------- | ---------------------------------------------------------- |
+| Aplicação principal  | Mendix (low-code)                | Desenvolvimento rápido, REST nativo, sem infra customizada |
+| Banco de dados       | Domain Model Mendix (PostgreSQL) | Gerenciado pela plataforma, zero configuração              |
+| Integrações externas | Consumed REST Services           | GET preços energia e CBIO a cada hora                      |
+| Entrada de dados     | Published REST Service           | POST de sensores IoT via `/api/leitura`                    |
+| Lógica de negócio    | Microflows + App Constants       | Thresholds configuráveis sem redeploy                      |
+| Agendamento          | Scheduled Events                 | Coleta de preços periódica                                 |
+| Interface            | Pages Mendix                     | 3 páginas: Saúde, Econômico, Histórico                     |
 
 ---
 
@@ -108,14 +109,14 @@ Esta documentação está organizada nas seguintes seções:
 
 ## Contexto do hackathon
 
-| Item | Detalhe |
-|---|---|
-| Evento | Hackathon Low Hack |
-| Organizadores | Siemens & Truechange |
-| Tema | Geração de energia via economia circular — resíduos sem incineração |
-| Plataforma obrigatória | Mendix (low-code) |
-| Versão da documentação | 1.0 — Abril 2026 |
+| Item                   | Detalhe                                                             |
+| ---------------------- | ------------------------------------------------------------------- |
+| Evento                 | Hackathon Low Hack                                                  |
+| Organizadores          | Siemens & Truechange                                                |
+| Tema                   | Geração de energia via economia circular — resíduos sem incineração |
+| Plataforma obrigatória | Mendix (low-code)                                                   |
+| Versão da documentação | 1.0 — Abril 2026                                                    |
 
 ---
 
-*Próxima seção: [Problema →](/problema)*
+_Próxima seção: [Problema →](/problema)_

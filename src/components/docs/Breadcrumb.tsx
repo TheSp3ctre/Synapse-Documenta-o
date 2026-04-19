@@ -6,7 +6,13 @@ export function Breadcrumb({ items }: { items: string[] }) {
       {items.map((item, i) => (
         <span key={i} className="flex items-center gap-1.5">
           {i > 0 && <ChevronRight className="h-3 w-3 text-sage-medium" />}
-          <span className={i === items.length - 1 ? "text-forest font-medium" : "hover:text-forest transition-colors cursor-pointer"}>
+          <span
+            className={
+              i === items.length - 1
+                ? "text-forest font-medium"
+                : "hover:text-forest transition-colors cursor-pointer"
+            }
+          >
             {item}
           </span>
         </span>

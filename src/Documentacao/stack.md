@@ -43,6 +43,7 @@ Todas as decisões de stack foram tomadas com um critério central: **o máximo 
 **Por que:** Plataforma obrigatória do hackathon. Além disso, atende bem ao caso de uso: lógica de negócio configurável visualmente, REST nativo sem código, banco de dados gerenciado e interface construída por drag-and-drop.
 
 **O que cobre nessa solução:**
+
 - Domain Model (banco de dados visual)
 - Microflows (lógica de negócio)
 - Published REST Service (endpoint para sensores)
@@ -59,6 +60,7 @@ Todas as decisões de stack foram tomadas com um critério central: **o máximo 
 **Função:** Expõe o endpoint `POST /api/leitura` que recebe dados dos sensores IoT.
 
 **Configuração no Mendix:**
+
 - Criar um REST Service publicado no módulo principal
 - Adicionar recurso `/leitura` com operação POST
 - Configurar Import Mapping para mapear JSON → entidade `LeituraSensor`
@@ -73,10 +75,10 @@ Todas as decisões de stack foram tomadas com um critério central: **o máximo 
 
 **Dois serviços configurados:**
 
-| Serviço | URL | Retorno |
-|---|---|---|
-| Preço energia | `GET /api/preco-energia` | `{ preco_mwh, unidade, fonte, timestamp }` |
-| Preço CBIO | `GET /api/preco-cbio` | `{ preco_tcO2e, unidade, fonte, timestamp }` |
+| Serviço       | URL                      | Retorno                                      |
+| ------------- | ------------------------ | -------------------------------------------- |
+| Preço energia | `GET /api/preco-energia` | `{ preco_mwh, unidade, fonte, timestamp }`   |
+| Preço CBIO    | `GET /api/preco-cbio`    | `{ preco_tcO2e, unidade, fonte, timestamp }` |
 
 **Para o hackathon:** Ambos os endpoints podem ser simulados com JSONs estáticos hospedados no [mockapi.io](https://mockapi.io) ou [jsonbin.io](https://jsonbin.io). O Mendix os consome identicamente a uma API real.
 
@@ -87,6 +89,7 @@ Todas as decisões de stack foram tomadas com um critério central: **o máximo 
 **Função:** Executa o Microflow de coleta de preços a cada hora, sem intervenção humana.
 
 **Configuração:**
+
 - Nome: `ColetarPrecosMercado`
 - Intervalo: 3600 segundos (1 hora)
 - Microflow associado: `CalcularOtimizacao` (que internamente chama o Consumed REST)
@@ -108,13 +111,13 @@ Veja a documentação completa em [Banco de dados →](/banco-de-dados).
 
 **Função:** Thresholds biológicos configuráveis em tempo real sem necessidade de redeploy.
 
-| Constante | Valor padrão | Descrição |
-|---|---|---|
-| `threshold_ph_critico` | 6.5 | pH abaixo = alerta crítico |
-| `threshold_agv_critico` | 4000 | AGV (mg/L) acima = alerta crítico |
-| `threshold_ch4_medio` | 50 | CH4 (%) abaixo = alerta médio |
-| `threshold_nh3_medio` | 3000 | NH3 (mg/L) acima = alerta médio |
-| `intervalo_coleta_precos` | 3600 | Segundos entre coletas de mercado |
+| Constante                 | Valor padrão | Descrição                         |
+| ------------------------- | ------------ | --------------------------------- |
+| `threshold_ph_critico`    | 6.5          | pH abaixo = alerta crítico        |
+| `threshold_agv_critico`   | 4000         | AGV (mg/L) acima = alerta crítico |
+| `threshold_ch4_medio`     | 50           | CH4 (%) abaixo = alerta médio     |
+| `threshold_nh3_medio`     | 3000         | NH3 (mg/L) acima = alerta médio   |
+| `intervalo_coleta_precos` | 3600         | Segundos entre coletas de mercado |
 
 > **Dica de demo:** Mostrar ao júri que é possível mudar o `threshold_ph_critico` de 6.5 para 6.8 no painel de constantes e o sistema imediatamente passa a gerar alertas em mais leituras — sem redeploy, sem código.
 
@@ -124,24 +127,24 @@ Veja a documentação completa em [Banco de dados →](/banco-de-dados).
 
 **Função:** Controle de acesso por perfil de usuário.
 
-| Perfil | Acesso |
-|---|---|
+| Perfil     | Acesso                                                           |
+| ---------- | ---------------------------------------------------------------- |
 | `Operador` | Ver alertas, aprovar/rejeitar recomendações, ver dashboard saúde |
-| `Gestor` | Tudo do Operador + ver painel econômico e histórico |
-| `Admin` | Tudo + configurar App Constants e cadastrar biodigestores |
+| `Gestor`   | Tudo do Operador + ver painel econômico e histórico              |
+| `Admin`    | Tudo + configurar App Constants e cadastrar biodigestores        |
 
 ---
 
 ## O que deliberadamente não está na stack
 
-| O que foi descartado | Por quê |
-|---|---|
+| O que foi descartado                | Por quê                                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------------------------ |
 | Machine learning / modelo preditivo | Thresholds configuráveis resolvem o problema para o hackathon com muito menos complexidade |
-| Banco de dados externo | Domain Model Mendix é suficiente e elimina toda a infra de banco |
-| Backend customizado (Node/Python) | Mendix Microflows cobrem toda a lógica necessária nativamente |
-| Fila de mensagens (Kafka, RabbitMQ) | Volume de dados não justifica; REST síncrono é suficiente |
-| Container / Kubernetes | Mendix Cloud gerencia o deploy automaticamente |
+| Banco de dados externo              | Domain Model Mendix é suficiente e elimina toda a infra de banco                           |
+| Backend customizado (Node/Python)   | Mendix Microflows cobrem toda a lógica necessária nativamente                              |
+| Fila de mensagens (Kafka, RabbitMQ) | Volume de dados não justifica; REST síncrono é suficiente                                  |
+| Container / Kubernetes              | Mendix Cloud gerencia o deploy automaticamente                                             |
 
 ---
 
-*Próxima seção: [Arquitetura →](/arquitetura)*
+_Próxima seção: [Arquitetura →](/arquitetura)_

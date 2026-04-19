@@ -6,18 +6,18 @@
 
 ## Fases de implementação
 
-| Fase | Entregável | Prioridade | Estimativa |
-|---|---|---|---|
-| 1 — Domain Model | 8 entidades + associations + enumerations | Crítica | 1–2h |
-| 2 — Mock REST | JSONs estáticos para sensores e preços | Crítica | 30min |
-| 3 — ImportarLeitura | Published REST + Import Mapping + Commit | Crítica | 1h |
-| 4 — AnalisarRisco | 4 Exclusive Splits + Create AlertaBiologico + App Constants | Crítica | 1–2h |
-| 5 — Page Saúde | Gauges + banner risco + lista alertas + botões | Crítica | 2h |
-| 6 — CalcularOtimizacao | Guard biológico + fórmulas + Create Recomendacao | Alta | 1–2h |
-| 7 — Page Econômica | Metric cards + gráfico + recomendação ativa | Alta | 1–2h |
-| 8 — Scheduled Event | Coleta periódica de preços via REST | Média | 1h |
-| 9 — Page Histórico | Data Grid 2 + filtros + gráficos de resumo | Média | 1–2h |
-| 10 — Notificações | POST REST externo para alertas críticos | Baixa | 1h |
+| Fase                   | Entregável                                                  | Prioridade | Estimativa |
+| ---------------------- | ----------------------------------------------------------- | ---------- | ---------- |
+| 1 — Domain Model       | 8 entidades + associations + enumerations                   | Crítica    | 1–2h       |
+| 2 — Mock REST          | JSONs estáticos para sensores e preços                      | Crítica    | 30min      |
+| 3 — ImportarLeitura    | Published REST + Import Mapping + Commit                    | Crítica    | 1h         |
+| 4 — AnalisarRisco      | 4 Exclusive Splits + Create AlertaBiologico + App Constants | Crítica    | 1–2h       |
+| 5 — Page Saúde         | Gauges + banner risco + lista alertas + botões              | Crítica    | 2h         |
+| 6 — CalcularOtimizacao | Guard biológico + fórmulas + Create Recomendacao            | Alta       | 1–2h       |
+| 7 — Page Econômica     | Metric cards + gráfico + recomendação ativa                 | Alta       | 1–2h       |
+| 8 — Scheduled Event    | Coleta periódica de preços via REST                         | Média      | 1h         |
+| 9 — Page Histórico     | Data Grid 2 + filtros + gráficos de resumo                  | Média      | 1–2h       |
+| 10 — Notificações      | POST REST externo para alertas críticos                     | Baixa      | 1h         |
 
 **Total estimado:** 12–17 horas de desenvolvimento
 
@@ -26,6 +26,7 @@
 ## Fase 1 — Domain Model (Crítica)
 
 **Por onde começar:**
+
 1. Criar o módulo principal: `NucleoDigest`
 2. Criar as enumerations antes das entidades:
    - `StatusBiodigestor`: ATIVO, MANUTENCAO, INATIVO
@@ -44,18 +45,45 @@
 **Criar dois bins no jsonbin.io:**
 
 Bin 1 — leitura saudável:
+
 ```json
-{"biodigestor_id":1,"ph":7.1,"ch4_pct":62.5,"temperatura_c":37.0,"agv_mgL":2100,"nh3_mgL":1500,"timestamp":"2026-04-19T14:30:00Z","origem":"mock"}
+{
+  "biodigestor_id": 1,
+  "ph": 7.1,
+  "ch4_pct": 62.5,
+  "temperatura_c": 37.0,
+  "agv_mgL": 2100,
+  "nh3_mgL": 1500,
+  "timestamp": "2026-04-19T14:30:00Z",
+  "origem": "mock"
+}
 ```
 
 Bin 2 — leitura crítica (para demo de alerta):
+
 ```json
-{"biodigestor_id":1,"ph":6.2,"ch4_pct":47.8,"temperatura_c":36.5,"agv_mgL":4800,"nh3_mgL":3200,"timestamp":"2026-04-19T14:30:00Z","origem":"mock"}
+{
+  "biodigestor_id": 1,
+  "ph": 6.2,
+  "ch4_pct": 47.8,
+  "temperatura_c": 36.5,
+  "agv_mgL": 4800,
+  "nh3_mgL": 3200,
+  "timestamp": "2026-04-19T14:30:00Z",
+  "origem": "mock"
+}
 ```
 
 Bin 3 — preços de mercado:
+
 ```json
-{"preco_mwh":312.50,"preco_tcO2e":28.40,"gas_natural_mwh":185.00,"fonte":"mock","timestamp":"2026-04-19T14:00:00Z"}
+{
+  "preco_mwh": 312.5,
+  "preco_tcO2e": 28.4,
+  "gas_natural_mwh": 185.0,
+  "fonte": "mock",
+  "timestamp": "2026-04-19T14:00:00Z"
+}
 ```
 
 ---
@@ -80,14 +108,14 @@ Roteiro de 5 minutos para apresentar o NucleoDigest ao júri do hackathon com o 
 
 ## Estrutura dos 5 minutos
 
-| Tempo | Momento | O que mostrar |
-|---|---|---|
-| 0:00–0:30 | Abertura | Contextualizar o problema em uma frase |
-| 0:30–1:30 | Demo Saúde (normal) | Dashboard verde, dados em tempo real |
+| Tempo     | Momento             | O que mostrar                           |
+| --------- | ------------------- | --------------------------------------- |
+| 0:00–0:30 | Abertura            | Contextualizar o problema em uma frase  |
+| 0:30–1:30 | Demo Saúde (normal) | Dashboard verde, dados em tempo real    |
 | 1:30–2:30 | Demo Saúde (alerta) | Simular leitura crítica, mostrar alerta |
-| 2:30–3:30 | Demo Econômico | Mostrar cálculo de lucro e recomendação |
-| 3:30–4:30 | Demo Histórico | Mostrar resultado e taxa de aprovação |
-| 4:30–5:00 | Fechamento | Destacar o diferencial e a escala |
+| 2:30–3:30 | Demo Econômico      | Mostrar cálculo de lucro e recomendação |
+| 3:30–4:30 | Demo Histórico      | Mostrar resultado e taxa de aprovação   |
+| 4:30–5:00 | Fechamento          | Destacar o diferencial e a escala       |
 
 ---
 
@@ -178,12 +206,12 @@ Argumentos estruturados para apresentar o NucleoDigest a investidores de impacto
 
 ## O que o mercado atual não resolve
 
-| Solução atual | O que monitora | O que ignora |
-|---|---|---|
-| Siemens industrial IoT | Equipamento, sensores físicos | Biologia do microbioma |
-| SCADA tradicional | Pressão, temperatura, fluxo | AGV, amônia, tendências biológicas |
-| Planilhas manuais | pH diário | Tudo o mais |
-| Nenhuma solução | — | Otimização econômica em tempo real |
+| Solução atual          | O que monitora                | O que ignora                       |
+| ---------------------- | ----------------------------- | ---------------------------------- |
+| Siemens industrial IoT | Equipamento, sensores físicos | Biologia do microbioma             |
+| SCADA tradicional      | Pressão, temperatura, fluxo   | AGV, amônia, tendências biológicas |
+| Planilhas manuais      | pH diário                     | Tudo o mais                        |
+| Nenhuma solução        | —                             | Otimização econômica em tempo real |
 
 ---
 
@@ -199,11 +227,11 @@ Argumentos estruturados para apresentar o NucleoDigest a investidores de impacto
 
 ## Modelo de receita (SaaS)
 
-| Tier | Preço sugerido | Inclui |
-|---|---|---|
-| Starter | R$ 1.500/mês/planta | Monitoramento biológico + alertas |
-| Pro | R$ 3.500/mês/planta | Starter + otimizador econômico + relatórios |
-| Enterprise | Sob consulta | Multi-planta + API customizada + SLA dedicado |
+| Tier       | Preço sugerido      | Inclui                                        |
+| ---------- | ------------------- | --------------------------------------------- |
+| Starter    | R$ 1.500/mês/planta | Monitoramento biológico + alertas             |
+| Pro        | R$ 3.500/mês/planta | Starter + otimizador econômico + relatórios   |
+| Enterprise | Sob consulta        | Multi-planta + API customizada + SLA dedicado |
 
 **Break-even para o cliente:** uma colapse evitada por ano cobre mais de 12 meses de assinatura Pro.
 
@@ -211,12 +239,12 @@ Argumentos estruturados para apresentar o NucleoDigest a investidores de impacto
 
 ## Oportunidade no Brasil
 
-| Indicador | Dado |
-|---|---|
-| Biodigestores industriais ativos | ~800 plantas (estimativa ABiogás 2024) |
-| Potencial de expansão | +3.000 plantas até 2030 (meta RenovaBio) |
-| Mercado endereçável (TAM) | R$ 126 M/ano (3.000 plantas × R$ 3.500/mês) |
-| Mercado acessível inicial (SAM) | R$ 25 M/ano (600 plantas Tier Pro) |
+| Indicador                        | Dado                                        |
+| -------------------------------- | ------------------------------------------- |
+| Biodigestores industriais ativos | ~800 plantas (estimativa ABiogás 2024)      |
+| Potencial de expansão            | +3.000 plantas até 2030 (meta RenovaBio)    |
+| Mercado endereçável (TAM)        | R$ 126 M/ano (3.000 plantas × R$ 3.500/mês) |
+| Mercado acessível inicial (SAM)  | R$ 25 M/ano (600 plantas Tier Pro)          |
 
 ---
 
@@ -303,4 +331,4 @@ Taxa cobrada pelo biodigestor para receber e tratar resíduos orgânicos de terc
 
 ---
 
-*Fim da documentação — versão 1.0 — Abril 2026*
+_Fim da documentação — versão 1.0 — Abril 2026_

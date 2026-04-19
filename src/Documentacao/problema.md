@@ -27,15 +27,15 @@ Janela de perda: 15 a 20 dias de produção zero
 
 ## Impacto financeiro real
 
-| Métrica | Valor estimado |
-|---|---|
-| Produção média de biogás | 500 m³/dia |
-| Energia gerada por dia | 300 kWh |
-| Receita diária total (todas as fontes) | R$ 3.500 – R$ 6.000 |
-| Duração média de um colapso | 15 dias |
-| **Perda por evento de colapso** | **R$ 52.000 – R$ 90.000** |
-| Colapsos típicos por ano (sem monitoramento) | 2 a 4 |
-| **Perda anual estimada** | **R$ 100.000 – R$ 360.000** |
+| Métrica                                      | Valor estimado              |
+| -------------------------------------------- | --------------------------- |
+| Produção média de biogás                     | 500 m³/dia                  |
+| Energia gerada por dia                       | 300 kWh                     |
+| Receita diária total (todas as fontes)       | R$ 3.500 – R$ 6.000         |
+| Duração média de um colapso                  | 15 dias                     |
+| **Perda por evento de colapso**              | **R$ 52.000 – R$ 90.000**   |
+| Colapsos típicos por ano (sem monitoramento) | 2 a 4                       |
+| **Perda anual estimada**                     | **R$ 100.000 – R$ 360.000** |
 
 Esses números não incluem custo de correção biológica (aditivos, mão de obra especializada) nem o impacto de resíduo não tratado acumulado durante o período.
 
@@ -65,4 +65,4 @@ O NucleoDigest resolve os dois problemas com uma arquitetura integrada: a saúde
 
 ---
 
-*Próxima seção: [Solução →](/solucao)*
+_Próxima seção: [Solução →](/solucao)_
