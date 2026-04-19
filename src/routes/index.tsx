@@ -54,7 +54,10 @@ function IntroductionPage() {
       <DocsSidebar 
         open={menuOpen} 
         onClose={() => setMenuOpen(false)} 
-        onSearchOpen={() => setSearchOpen(true)}
+        onSearchOpen={() => {
+          setMenuOpen(false);
+          setSearchOpen(true);
+        }}
       />
 
       {/* Search Modal */}
@@ -85,9 +88,9 @@ function IntroductionPage() {
 
       {/* Mobile top bar */}
       <header className="sticky top-0 z-20 flex items-center justify-between border-b border-sage bg-background/85 px-4 py-3 backdrop-blur lg:hidden">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <MobileMenuButton onClick={() => setMenuOpen(true)} />
-          <span className="text-sm font-bold uppercase tracking-tight text-foreground">DOCUMENTAÇÃO</span>
+          <img src="/LOGO.png" alt="Logo" className="h-5 w-auto object-contain" />
         </div>
       </header>
 

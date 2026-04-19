@@ -93,7 +93,7 @@ export function DocsSidebar({ open, onClose, onSearchOpen }: DocsSidebarProps) {
         {/* Logo */}
         <div className="flex items-center gap-2 px-6 py-5 border-b border-sage">
           <div className="flex-1">
-            <div className="text-sm font-bold tracking-tight text-foreground uppercase">DOCUMENTAÇÃO</div>
+            <img src="/LOGO.png" alt="Logo" className="h-6 w-auto object-contain" />
           </div>
           <button
             onClick={onClose}
