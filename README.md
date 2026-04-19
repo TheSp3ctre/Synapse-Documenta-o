@@ -1,4 +1,4 @@
-# NucleoDigest Documentação Técnica
+# Synapse Documentação 
 
 Este repositório centraliza toda a documentação da arquitetura e implementação do **Synapse**, uma solução inteligente para monitoramento biológico e otimização econômica de biodigestores industriais.
 
