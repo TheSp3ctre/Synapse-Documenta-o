@@ -10,7 +10,32 @@ export const sections: NavSection[] = [
     icon: BookOpen,
     defaultOpen: true,
     items: [
-      { label: "Introdução", href: "/", active: true },
+      { label: "Introdução", href: "/" },
+      { label: "Visão Geral", href: "/docs/visao-geral" },
+      { label: "O Problema", href: "/docs/problema" },
+      { label: "A Solução", href: "/docs/solucao" },
+      { label: "O Projeto", href: "/docs/projeto" },
+      { label: "Tecnologias", href: "/docs/stack" },
+    ],
+  },
+  {
+    title: "Arquitetura",
+    icon: GitBranch,
+    defaultOpen: true,
+    items: [
+      { label: "Arquitetura Geral", href: "/docs/arq-geral" },
+      { label: "Detalhes Técnicos", href: "/docs/arq-detalhes" },
+      { label: "Banco de Dados", href: "/docs/banco-de-dados" },
+      { label: "Microflows", href: "/docs/microflows" },
+    ],
+  },
+  {
+    title: "Integrações & UI",
+    icon: Compass,
+    defaultOpen: true,
+    items: [
+      { label: "Integrações", href: "/docs/integracoes" },
+      { label: "Interface", href: "/docs/interface" },
     ],
   },
 ];
