@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { Search, Leaf, Moon, Sun, ChevronDown, BookOpen, Compass, Lightbulb, GitBranch, X, Menu } from "lucide-react";
+import { Search, ChevronDown, BookOpen, Compass, GitBranch, X, Menu } from "lucide-react";
+import { Link, useLocation } from "@tanstack/react-router";
 
-type NavItem = { label: string; href: string; active?: boolean };
+type NavItem = { label: string; href: string };
 type NavSection = { title: string; icon: React.ComponentType<{ className?: string }>; items: NavItem[]; defaultOpen?: boolean };
 
 export const sections: NavSection[] = [
@@ -41,8 +42,17 @@ export const sections: NavSection[] = [
 ];
 
 function Section({ section }: { section: NavSection }) {
-  const [open, setOpen] = useState(section.defaultOpen ?? false);
+  const location = useLocation();
+  const isActive = (href: string) => location.pathname === href;
+  const hasActiveItem = section.items.some(item => isActive(item.href));
+  
+  const [open, setOpen] = useState(section.defaultOpen || hasActiveItem);
   const Icon = section.icon;
+
+  // Sync open state if an item becomes active (e.g. from search)
+  useEffect(() => {
+    if (hasActiveItem) setOpen(true);
+  }, [hasActiveItem]);
 
   return (
     <div className="mb-1">
@@ -56,20 +66,23 @@ function Section({ section }: { section: NavSection }) {
       </button>
       {open && (
         <ul className="relative ml-4 mt-1 border-l border-sage">
-          {section.items.map((item) => (
-            <li key={item.label} className="relative">
-              <a
-                href={item.href}
-                className={`relative -ml-px flex items-center px-4 py-2 text-sm transition-all duration-150 ${
-                  item.active
-                    ? "border-l-2 border-primary bg-sage-soft/60 font-medium text-forest dark:text-sage-medium"
-                    : "border-l-2 border-transparent text-foreground hover:bg-sage-soft/50 hover:text-forest dark:hover:text-sage-medium"
-                }`}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
+          {section.items.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <li key={item.label} className="relative">
+                <Link
+                  to={item.href}
+                  className={`relative -ml-px flex items-center px-4 py-2 text-sm transition-all duration-150 ${
+                    active
+                      ? "border-l-2 border-primary bg-sage-soft/60 font-medium text-forest dark:text-sage-medium"
+                      : "border-l-2 border-transparent text-foreground hover:bg-sage-soft/50 hover:text-forest dark:hover:text-sage-medium"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>
@@ -105,7 +118,9 @@ export function DocsSidebar({ open, onClose, onSearchOpen }: DocsSidebarProps) {
         {/* Logo */}
         <div className="flex items-center gap-2 px-6 py-5 border-b border-sage">
           <div className="flex-1">
-            <img src="/LOGO.png" alt="Logo" className="h-6 w-auto object-contain" />
+            <Link to="/">
+              <img src="/LOGO.png" alt="Logo" className="h-6 w-auto object-contain" />
+            </Link>
           </div>
           <button
             onClick={onClose}
@@ -152,3 +167,4 @@ export function MobileMenuButton({ onClick }: { onClick: () => void }) {
     </button>
   );
 }
+
