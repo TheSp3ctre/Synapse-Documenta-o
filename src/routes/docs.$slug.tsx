@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 // Import all markdown files as raw strings
-const docs = import.meta.glob("../Documentação/*.md", {
+const docs = import.meta.glob("../Documentacao/*.md", {
   query: "?raw",
   import: "default",
   eager: true,
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/docs/$slug")({
 
 function DocPage() {
   const { slug } = Route.useParams();
-  const filePath = `../Documentação/${slug}.md`;
+  const filePath = `../Documentacao/${slug}.md`;
   const content = docs[filePath];
 
   if (!content) {
